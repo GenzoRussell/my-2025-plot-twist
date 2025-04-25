@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Amor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <audio id="background-audio">
+        <source src="audio/pahinga.mp3" type="audio/mp3">
+
+    </audio>
+
+    <script>
+        const audio = document.getElementById('background-audio');
+        audio.loop = true;
+        audio.volume = 0.2;
+
+        function showMessage(noteNumber) {
+            const message = document.getElementById('note-message-' + noteNumber);
+            const gif = document.getElementById('note-gif-' + noteNumber);
+            const button = document.querySelector('.btn-show-message');
+            const nextPageButton = document.querySelector('.btn-next-page-' + noteNumber);
+            const noteContainer = document.querySelector('.note-container');
+        
+            gif.style.display = 'block';
+            message.style.display = 'block';
+            button.style.display = 'none';
+            nextPageButton.style.display = 'block';
+            noteContainer.style.display = 'none';
+            audio.play();
+        }
+        
+
+        function goToNextPage(currentNote, totalNotes) {
+            const currentMessage = document.getElementById('note-message-' + currentNote);
+            const currentGif = document.getElementById('note-gif-' + currentNote);
+            currentMessage.style.display = 'none';
+            currentGif.style.display = 'none';
+        
+            if (currentNote < totalNotes) {
+                const nextMessage = document.getElementById('note-message-' + (currentNote + 1));
+                const nextGif = document.getElementById('note-gif-' + (currentNote + 1));
+                nextMessage.style.display = 'block';
+                nextGif.style.display = 'block';
+            } else {
+                alert("No more notes to show!");
+            }
+        }
+
+        function moveNoButton() {
+            const noButton = document.querySelector('.btn-danger');
+        
+            // Generate random coordinates within the screen
+            const randomX = Math.floor(Math.random() * (window.innerWidth - noButton.offsetWidth));
+            const randomY = Math.floor(Math.random() * (window.innerHeight - noButton.offsetHeight));
+        
+            // Apply random position to the button
+            noButton.style.position = 'absolute';
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+        
+        function openModal() {
+            document.getElementById('final-modal').style.display = 'flex';
+            const yesButton = document.querySelector('.btn-success');
+            yesButton.disabled = false;  // Enable the "Yes" button when modal is shown
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('final-modal');
+            const noteContainer = document.querySelector('.note-container');
+            const messages = document.querySelectorAll('.message');
+            const gifs = document.querySelectorAll('.note-gif'); // Select all GIFs
+            const nextPageButtons = document.querySelectorAll('.btn-next-page');
+        
+            // Hide the modal
+            modal.style.display = 'none';
+        
+            // Reset the visibility of all messages and next-page buttons
+            messages.forEach((message) => {
+                message.style.display = 'none';
+            });
+            nextPageButtons.forEach((button) => {
+                button.style.display = 'none';
+            });
+        
+            // Reset the visibility of all GIFs
+            gifs.forEach((gif) => {
+                gif.style.display = 'none';
+            });
+        
+            // Reset the "Hello Love" container visibility
+            noteContainer.style.display = 'block';
+        
+            // Show the "Press Here" button
+            const showMessageButton = document.querySelector('.btn-show-message');
+            showMessageButton.style.display = 'block';
+        
+            // Reset the "Yes" button for future use
+            const yesButton = document.querySelector('.btn-success');
+            yesButton.disabled = false;
+        }
+
+        function handleYesClick() {
+            // Disable the "Yes" button after it's clicked
+            const yesButton = document.querySelector('.btn-success');
+            yesButton.disabled = true;
+            alert("You clicked Yes!");
+            closeModal();  // Close the modal after clicking "Yes"
+        }
+
+        function openConfirmationModal() {
+            document.getElementById('confirmation-modal').style.display = 'flex';
+        }
+        
+        function closeConfirmationModal() {
+            document.getElementById('confirmation-modal').style.display = 'none';
+        }
+        
+        function proceedToNote() {
+            closeConfirmationModal(); // Close the confirmation modal
+            showMessage(1); // Show Note 1
+        }
+        
+    </script>
+
+    <div class="note-container">
+        <h1>Hello Love</h1>
+        <button class="btn btn-primary btn-show-message" onclick="openConfirmationModal()">Press Here</button>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Hello love!</h2>
+            <p>
+                I apologize if this song was repetitive to you, but I dedicated this song named "Sa Bawat Sandali" to you it's because you're my pahinga and the person who makes my life significant and comfortable. You're the type of person who makes everything seem lighter, even when the weight of the world is on my shoulders. You bring serenity and peace to my troubled heart, tranquilly to my chaos, and joy to my dreary days. You're the reason I wake up every day smiling, knowing I have someone as great as you by my side. I hope you acknowledge that every time with you is like a dream I don't want to wake up from, a moment of peace to cherish forever. With you, I feel serenity, peace, and cared for in ways I never imagined possible, and this song is a perfect reflection of my love and gratitude for you. It expresses sentiments that words frequently fail to express the way my heart beats a bit quicker when I think of you, the comfort I feel simply knowing you exist, and the enormous enjoyment you bring into my life.
+            </p>
+            <button class="btn btn-primary" onclick="proceedToNote()">Proceed</button>
+        </div>
+    </div>
+
+    <!-- Note Messages -->
+    <div id="note-gif-1" class="note-gif" style="display: none;">
+        <img src="gif/mochi cat.gif" alt="Gif for Note 1" style="width: 90%; object-fit: cover; margin-top: 300px;">
+    </div>
+    <div id="note-message-1" class="message" style="display: none;">
+        <h1>Note 1</h1>
+        <p>Hello love! So yeah here I am now in moment to express myself in words because you means the world to me and no words can ever describe that. You did not know how missing you felt when we started talking, there was this light that you brought to my life. Although we are both miles apart from each other, there is this deep connection between us which is hard to explain yet hard to ignore. With every conversation that we share at the moment, I get a stronger feeling that there is a special feeling that is developing between us. I love the fact that I can courageously claim that I would pursue you even if that path may be full of uncertainty. To pursue you is deemd worthy goals to me that I must tackle as well as fear. Time, distance, and their uncertainty do not frighten me at all because my heart is in so much love with you that every reasoning fails. And I am willing to take on every challenge with undivided loyalty. Truly for you, I am more than willing to face the every single doubt, embracing the unknown, crossing storms, because I cannot ever risk living a life without you.</p>
+        <button class="btn btn-secondary btn-next-page-1" onclick="goToNextPage(1, 5)">Next</button>
+    </div>
+
+    <div id="note-gif-2" class="note-gif" style="display: none;">
+        <img src="gif/mochi cat kiss.gif" alt="Gif for Note 2" style="width: 90%; object-fit: cover; margin-top: 300px;">
+    </div>
+    <div id="note-message-2" class="message" style="display: none;">
+        <h1>Note 2</h1>
+        <p>I completely understand how hard your battles are, and I want you to know that not everyone leaves, nor does every love diminish. During the storms, the ups and downs of life, and the moments when the world seems to be collapsing I want you to know that Im here and be there for you. I truly believe that everyone deserves constant love, unwavering and pure, and I want to be that source of love to you. That is the love you genuinely deserve. A profound desire within me tells me that I want to take care of you and make sure that life doesn’t feel burdensome. I want to comfort you during stressful times and hold you tight. I want to be the reason behind your laugh and make you smile. And I especially want to create memories that are everlasting. I want to make you happier than anyone else did, be your last lover, and be a place where you can always find comfort. I want to be someone who you can trust and depend on, and someone who makes you feel cherished everyday.</p>
+        <button class="btn btn-secondary btn-next-page-2" onclick="goToNextPage(2, 5)">Next</button>
+    </div>
+
+    <div id="note-gif-3" class="note-gif" style="display: none;">
+        <img src="gif/mochi cat love hugs.gif" alt="Gif for Note 3" style="width: 90%; object-fit: cover; margin-top: 300px;">
+    </div>
+    <div id="note-message-3" class="message" style="display: none;">
+        <h1>Note 3</h1>
+        <p>I know love isn't about the sweet promises or sweet words. It is about showing up even when it's difficult. I want to show you that I'm here for you. My love for you has no fear and I want to be that one person standing next to you, encouraging you, helping you achieve your dreams knowing I'll be here, cheering for you.</p>
+        <button class="btn btn-secondary btn-next-page-3" onclick="goToNextPage(3, 5)">Next</button>
+    </div>
+
+    <div id="note-gif-4" class="note-gif" style="display: none;">
+        <img src="gif/mochi cat sending lots of loves.gif" alt="Gif for Note 4" style="width: 90%; object-fit: cover; margin-top: 300px;">
+    </div>
+    <div id="note-message-4" class="message" style="display: none;">
+        <h1>Note 4</h1>
+        <p>So love, I am here to ask you to court you and proving to you that my feelings are not just some fleeting thought, but something deep, something real and I want to take this journey with you at your pace, showing you that some hearts are meant to stay forever.</p>
+        <button class="btn btn-secondary btn-next-page-4" onclick="goToNextPage(4, 5)">Next</button>
+    </div>
+
+    <div id="note-gif-5" class="note-gif" style="display: none;">
+        <img src="gif/mochi cat begging.gif" alt="Gif for Note 5" style="width: 90%; object-fit: cover; margin-top: 300px;">
+    </div>
+    <div id="note-message-5" class="message" style="display: none;">
+        <h1>Note 5</h1>
+        <p>Love? Will you be my Girlfriend?</p>
+        <div class="btn-container">
+            <button class="btn btn-success btn-yes" onclick="openModal()">Yes</button>
+            <button class="btn btn-danger btn-no" onclick="moveNoButton()">Yes</button>
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div id="final-modal" class="modal">
+        <div class="modal-content">
+            <h2>YAY!!</h2>
+            <p>You're now my girlfriend!! I love you!! and I may not your first love but I intend to be your last how ever long it takes I love youu!!!</p>
+            <img src="gif/mochi cat lost of love hugs.gif" alt="Celebration GIF" style="width: 100%; max-width: 300px;">
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
